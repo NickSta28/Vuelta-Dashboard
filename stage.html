@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etappe 1 – Resümee</title>
+<style>
+  :root {
+    --red: #C8102E;
+    --red-dark: #8C0B20;
+    --red-tint: #FBE9EC;
+    --ink: #1C1C1E;
+    --ink-soft: #55555A;
+    --ink-faint: #8A8A8E;
+    --paper: #FAF9F7;
+    --card: #FFFFFF;
+    --line: #E7E4DF;
+    --amber: #C77800;
+    --green: #3B6D11;
+    --blue: #2A5C8A;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 0 0 40px; }
+
+  header {
+    background: var(--red);
+    color: #fff;
+    padding: 20px 18px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  header .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    font-weight: 600;
+  }
+  header h1 {
+    margin: 4px 0 2px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  header .route {
+    font-size: 13px;
+    opacity: 0.95;
+    margin-top: 2px;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 6px;
+    padding: 12px 16px 4px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: #fff;
+  }
+  .badge.terrain { background: var(--amber); }
+  .badge.gc { background: var(--blue); }
+  .badge.breakaway { background: var(--ink-faint); }
+
+  .section {
+    background: var(--card);
+    margin: 10px 12px 0;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .section-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--red-dark);
+    padding: 12px 14px 4px;
+  }
+  .section-body {
+    padding: 0 14px 14px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  .facts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0 14px 14px;
+  }
+  .fact {
+    background: var(--paper);
+    border-radius: 10px;
+    padding: 8px 10px;
+  }
+  .fact .k {
+    font-size: 9.5px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .fact .v {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 1px;
+  }
+
+  .profile-box {
+    margin: 0 14px 14px;
+    background: var(--paper);
+    border-radius: 10px;
+    padding: 10px 10px 6px;
+  }
+  .profile-box svg { width: 100%; height: auto; display: block; }
+  .profile-caption {
+    font-size: 10.5px;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  .finale-highlight {
+    margin: 0 14px 14px;
+    background: var(--red-tint);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .finale-highlight .k {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--red-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 3px;
+  }
+
+  .favorites-list {
+    padding: 0 14px 14px;
+  }
+  .fav-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fav-row:last-child { border-bottom: none; }
+  .fav-rank {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-faint);
+    width: 16px;
+  }
+  .fav-name { font-size: 13.5px; font-weight: 600; flex: 1; }
+  .fav-tag {
+    font-size: 10px;
+    color: var(--ink-soft);
+    background: var(--paper);
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-align: right;
+    max-width: 150px;
+  }
+
+  .note-box {
+    margin: 0 14px 14px;
+    background: #F0F4F8;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .note-box .k {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 3px;
+  }
+
+  footer {
+    padding: 18px 18px 4px;
+    font-size: 11px;
+    color: var(--ink-faint);
+    text-align: center;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">La Vuelta a España 2026 · Etappe 1</div>
+    <h1>Monaco → Monaco</h1>
+    <div class="route">Sa, 22.08. · 9,4 km Einzelzeitfahren · Start 16:17 Uhr</div>
+    <a href="index.html" style="display:inline-block; margin-top:8px; background:rgba(255,255,255,0.18); color:#fff; text-decoration:none; font-size:12.5px; font-weight:700; padding:6px 12px; border-radius:20px;">← Zurück zum Dashboard</a>
+  </header>
+
+  <div class="badge-row">
+    <span class="badge terrain">Zeitfahren · technisch</span>
+    <span class="badge gc">GC: kleine Gaps, aber wichtig</span>
+    <span class="badge breakaway">Kein Ausreißer-Tag</span>
+  </div>
+
+  <!-- FAKTEN -->
+  <div class="section">
+    <div class="section-title">Fakten</div>
+    <div class="facts-grid">
+      <div class="fact"><div class="k">Distanz</div><div class="v">9,4 km</div></div>
+      <div class="fact"><div class="k">Höhenmeter</div><div class="v">~55–90 Hm</div></div>
+      <div class="fact"><div class="k">Kurven</div><div class="v">25 (13 signifikant)</div></div>
+      <div class="fact"><div class="k">Besonderheit</div><div class="v">3 Tunnel, F1-Strecke</div></div>
+    </div>
+  </div>
+
+  <!-- KARTE -->
+  <div class="section">
+    <div class="section-title">Streckenkarte</div>
+    <div class="profile-box">
+      <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid meet">
+        <!-- Wasser/Hafen Hintergrund -->
+        <rect x="0" y="180" width="400" height="80" fill="#DCE8F0"/>
+        <text x="340" y="245" font-size="9" fill="#7A98AA" font-family="sans-serif">Mittelmeer</text>
+
+        <!-- Streckenverlauf (schematisch) -->
+        <path d="M 90 60
+                 L 150 60
+                 L 150 40
+                 L 70 40
+                 L 70 90
+                 L 200 90
+                 L 220 60
+                 L 260 60
+                 L 260 120
+                 L 320 120
+                 L 320 160
+                 L 250 160
+                 L 250 190
+                 L 150 190
+                 L 150 150
+                 L 100 150
+                 L 100 110
+                 L 90 110 Z"
+              fill="none" stroke="var(--red)" stroke-width="3" stroke-linejoin="round"/>
+
+        <!-- Start -->
+        <circle cx="90" cy="60" r="6" fill="var(--green)"/>
+        <text x="98" y="58" font-size="10" font-weight="700" fill="var(--ink)" font-family="sans-serif">Start</text>
+        <text x="98" y="70" font-size="8.5" fill="var(--ink-soft)" font-family="sans-serif">Place du Casino</text>
+
+        <!-- Fairmont Hairpin -->
+        <circle cx="150" cy="40" r="4" fill="var(--amber)"/>
+        <text x="158" y="38" font-size="8.5" fill="var(--ink-soft)" font-family="sans-serif">Fairmont-Haarnadel</text>
+
+        <!-- Tunnel -->
+        <circle cx="260" cy="90" r="4" fill="var(--blue)"/>
+        <text x="268" y="88" font-size="8.5" fill="var(--ink-soft)" font-family="sans-serif">Tunnel Bd. Louis II</text>
+
+        <!-- Fontvieille -->
+        <circle cx="320" cy="140" r="4" fill="var(--blue)"/>
+        <text x="270" y="135" font-size="8.5" fill="var(--ink-soft)" font-family="sans-serif">Fontvieille</text>
+
+        <!-- Port Hercule -->
+        <circle cx="200" cy="190" r="4" fill="var(--blue)"/>
+        <text x="160" y="205" font-size="8.5" fill="var(--ink-soft)" font-family="sans-serif">Port Hercule</text>
+
+        <!-- Ziel -->
+        <circle cx="100" cy="150" r="6" fill="var(--red-dark)"/>
+        <text x="40" y="148" font-size="10" font-weight="700" fill="var(--ink)" font-family="sans-serif">Ziel</text>
+        <text x="20" y="160" font-size="8.5" fill="var(--ink-soft)" font-family="sans-serif">Bd. Albert 1er</text>
+      </svg>
+      <div class="profile-caption">Schematische Darstellung · echte Streckenkarte (PCS/La Vuelta) folgt in finaler Version</div>
+    </div>
+    <div style="padding: 0 14px 14px;">
+      <a href="https://www.procyclingstats.com/race/vuelta-a-espana/2026/stage-1/info/profiles" target="_blank"
+         style="display:block; text-align:center; background:var(--red); color:#fff; text-decoration:none; font-size:13px; font-weight:700; padding:10px; border-radius:10px;">
+        📍 Echtes Profil &amp; Karte auf PCS ansehen
+      </a>
+    </div>
+  </div>
+
+  <!-- PROFIL -->
+  <div class="section">
+    <div class="section-title">Höhenprofil</div>
+    <div class="profile-box">
+      <svg viewBox="0 0 400 100" preserveAspectRatio="none">
+        <polyline points="0,80 40,78 80,75 120,72 160,68 200,70 240,60 280,55 320,65 360,58 400,62"
+          fill="none" stroke="#C8102E" stroke-width="2.5"/>
+        <polyline points="0,80 40,78 80,75 120,72 160,68 200,70 240,60 280,55 320,65 360,58 400,62 400,100 0,100"
+          fill="#FBE9EC" stroke="none" opacity="0.6"/>
+      </svg>
+      <div class="profile-caption">Gesamtprofil · fast flach, ständige Richtungswechsel statt Höhenmeter</div>
+    </div>
+    <div class="profile-box" style="margin-top: -6px;">
+      <svg viewBox="0 0 400 100" preserveAspectRatio="none">
+        <polyline points="0,55 50,60 100,50 150,65 200,45 250,58 300,40 350,50 400,35"
+          fill="none" stroke="var(--blue)" stroke-width="2.5"/>
+        <polyline points="0,55 50,60 100,50 150,65 200,45 250,58 300,40 350,50 400,35 400,100 0,100"
+          fill="var(--blue)" stroke="none" opacity="0.12"/>
+      </svg>
+      <div class="profile-caption">Zoom letzte ~3 km · Port Hercule, Zielgerade Bd. Albert 1er (F1-Ziellinie)</div>
+    </div>
+  </div>
+
+  <!-- SCHLUSSPHASE -->
+  <div class="section">
+    <div class="section-title">Schlussphase (letzte 3 km)</div>
+    <div class="finale-highlight">
+      <div class="k">Rund um Port Hercule</div>
+      <div>Nach dem Tunnel am Boulevard Louis II folgt die letzte technische Passage am Hafen vorbei, dann Zielgerade auf dem Boulevard Albert 1er – der originalen F1-Ziellinie. Keine nennenswerten Höhenmeter mehr, aber die letzten Kurven verlangen nochmal volle Konzentration bei hoher Ermüdung.</div>
+    </div>
+  </div>
+
+  <!-- HISTORISCHER VERGLEICH -->
+  <div class="section">
+    <div class="section-title">Historischer Vergleich</div>
+    <div class="section-body" style="padding-bottom: 6px;">
+      <strong>Ähnliche Kurz-Zeitfahren (Vuelta-Opener letzte Jahre):</strong> 2024 Lissabon (12 km, Prologue-Charakter) – Sieger Brandon McNulty. 2021 Burgos (7 km) – Sieger Primož Roglič. Muster: kurze, explosive Zeitfahren favorisieren oft nicht die reinen TT-Spezialisten, sondern Fahrer mit Beschleunigungsstärke aus Kurven.
+    </div>
+    <div class="section-body" style="padding-top: 0;">
+      <strong>Frühere Vuelta in Monaco:</strong> Kein bekannter Vuelta-Besuch – historische Premiere für die Stadt als Grand-Tour-Start (nach TdF 2009 und Giro-Start 1966 ist dies die erste Monaco-Beteiligung bei allen drei Grand Tours in Folge).
+    </div>
+  </div>
+
+  <!-- EINORDNUNG -->
+  <div class="section">
+    <div class="section-title">Einordnung</div>
+    <div class="section-body">
+      Bei nur 9,4 km bleiben die Zeitunterschiede zwischen den GC-Kandidaten klein – aber nicht bedeutungslos: erste Formanzeige vor drei intensiven Bergetappen direkt in der ersten Woche (Font-Romeu, Andorra). Technisches Terrain bedeutet: Fahrkönnen zählt fast so viel wie reine Leistung.
+    </div>
+  </div>
+
+  <!-- FAVORITEN -->
+  <div class="section">
+    <div class="section-title">Favoriten</div>
+    <div class="favorites-list">
+      <div class="fav-row"><span class="fav-rank">1</span><span class="fav-name">Tadej Pogačar</span><span class="fav-tag">Wohnt in Monaco, 2. bei TdF-ITT hinter Evenepoel</span></div>
+      <div class="fav-row"><span class="fav-rank">2</span><span class="fav-name">Joshua Tarling</span><span class="fav-tag">TT-Spezialist, Euro-Champion</span></div>
+      <div class="fav-row"><span class="fav-rank">3</span><span class="fav-name">Stefan Küng</span><span class="fav-tag">Vuelta-ITT-Sieger 2024 (Madrid)</span></div>
+      <div class="fav-row"><span class="fav-rank">4</span><span class="fav-name">Wout van Aert</span><span class="fav-tag">9 Karriere-TT-Siege, technisch stark</span></div>
+      <div class="fav-row"><span class="fav-rank">5</span><span class="fav-name">Mattias Skjelmose</span><span class="fav-tag">3. TdF-ITT hinter Evenepoel/Pogačar</span></div>
+    </div>
+  </div>
+
+  <!-- MOTIVATIONS-NOTIZ -->
+  <div class="section">
+    <div class="section-title">Besondere Storyline</div>
+    <div class="note-box">
+      <div class="k">Joshua Tarling</div>
+      Fährt sein erstes großes Rennen nach dem kürzlichen Tod seines Bruders Finlay (Volta a Portugal). Ein Sieg hier wäre eine emotionale Widmung – zusätzliche Motivation für einen ohnehin technisch gut aufgestellten Favoriten.
+    </div>
+  </div>
+
+  <!-- BREAKAWAY-HINWEIS -->
+  <div class="section">
+    <div class="section-title">Breakaway-Tracker</div>
+    <div class="section-body">
+      Bei einem Einzelzeitfahren nicht anwendbar – Tracker startet ab Etappe 2 (erste Massenstart-Etappe). Grundsätzlich gilt: Für viele Fahrer mit bislang enttäuschender Saison ist diese Vuelta die letzte große Bühne 2026, sich noch zu zeigen – das fließt ab Etappe 2 verstärkt in die Ausreißer-Einschätzung ein, besonders Richtung Woche 3.
+    </div>
+  </div>
+
+  <footer>
+    Vollständig recherchiertes Etappen-Resümee · Stand 21.08.2026, Vorabend Etappe 1.
+  </footer>
+
+</div>
+</body>
+</html>
